@@ -1,0 +1,599 @@
+{
+	"info": {
+		"_postman_id": "65fbf73d-e86b-423e-a2a0-af6a2c29cde0",
+		"name": "cpmPlus OData Examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Service document",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Metadata document",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata$metadata",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata$metadata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Path_Pipe",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/Path_Pipe",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"Path_Pipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Path_Pipe('Example site.Water transfer system.Pipe')",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/Path_Pipe('Example site.Water transfer system.Pipe')",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"Path_Pipe('Example site.Water transfer system.Pipe')"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UIUnit filter and expand",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/UIUnit?$filter=ProductOf1 ne null&$expand=ProductOf1",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"UIUnit"
+					],
+					"query": [
+						{
+							"key": "$filter",
+							"value": "ProductOf1 ne null"
+						},
+						{
+							"key": "$expand",
+							"value": "ProductOf1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UIUnit Client Paging",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/UIUnit?$top=10",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"UIUnit"
+					],
+					"query": [
+						{
+							"key": "$top",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Note that by using top, we will not receive a next link if there are more items after the first 10."
+			},
+			"response": []
+		},
+		{
+			"name": "UIUnit Server Paging",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Prefer",
+						"value": "odata.maxpagesize=10",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/UIUnit",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"UIUnit"
+					]
+				},
+				"description": "By specifying the odata.maxpagesize in the Prefer header we can control the server side paging."
+			},
+			"response": []
+		},
+		{
+			"name": "func FetchGraphData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/FetchGraphData(classname='EquipmentHistory', wherestring='Path=%3F AND Property=%3F', whereargs=['A.Path', 'A_Property'], endx='2019-05-14T12:23:00Z', startx='2019-05-01T12:23:00Z',statusformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED')",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"FetchGraphData(classname='EquipmentHistory', wherestring='Path=%3F AND Property=%3F', whereargs=['A.Path', 'A_Property'], endx='2019-05-14T12:23:00Z', startx='2019-05-01T12:23:00Z',statusformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED')"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "func ReplaceGraphDataRange (DELETE)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "prefer",
+						"type": "text",
+						"value": "odata.maxpagesize=2",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"classname\" : \"EquipmentHistory\",\n\t\"startx\" : \"2019-05-09T13:23:00Z\",\n\t\"endx\" : \"2019-05-09T13:27:00Z\",\n\t\"wherestring\": \"Path=%3F AND Property=%3F\",\n\t\"whereargs\": [\"A.Path\", \"A_Property\"],\n\t\"XValues\": [],\n\t\"YValues\": [],\n\t\"Statuses\": []\n}"
+				},
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/ReplaceGraphDataRange?",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"ReplaceGraphDataRange"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "func ReplaceGraphDataRange (WRITE)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "prefer",
+						"type": "text",
+						"value": "odata.maxpagesize=2",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"classname\" : \"EquipmentHistory\",\n\t\"startx\" : \"2019-05-09T13:23:00Z\",\n\t\"endx\" : \"2019-05-09T13:27:00Z\",\n\t\"wherestring\": \"Path=%3F AND Property=%3F\",\n\t\"whereargs\": [\"A.Path\", \"A_Property\"],\n\t\"XValues\": [ \"2019-05-09T13:23:04.1505381Z\",\n                \"2019-05-09T13:23:09.1630316Z\",\n                \"2019-05-09T13:23:14.1703008Z\",\n                \"2019-05-09T13:23:19.152622Z\",\n                \"2019-05-09T13:23:24.161102Z\",\n                \"2019-05-09T13:23:29.1678604Z\",\n                \"2019-05-09T13:23:44.1750862Z\",\n                \"2019-05-09T13:23:49.1600048Z\",\n                \"2019-05-09T13:23:54.1690913Z\",\n                \"2019-05-09T13:23:59.1510192Z\",\n                \"2019-05-09T13:24:04.1582845Z\",\n                \"2019-05-09T13:24:09.1594405Z\",\n                \"2019-05-09T13:24:14.1597352Z\",\n                \"2019-05-09T13:24:19.1699251Z\",\n                \"2019-05-09T13:24:29.1510526Z\",\n                \"2019-05-09T13:24:34.1508508Z\",\n                \"2019-05-09T13:24:39.161864Z\",\n                \"2019-05-09T13:24:44.1636682Z\",\n                \"2019-05-09T13:24:49.1585678Z\",\n                \"2019-05-09T13:24:54.1607645Z\",\n                \"2019-05-09T13:24:59.1580481Z\",\n                \"2019-05-09T13:25:04.1655251Z\",\n                \"2019-05-09T13:25:09.151516Z\",\n                \"2019-05-09T13:25:14.1648917Z\",\n                \"2019-05-09T13:25:19.1516363Z\",\n                \"2019-05-09T13:25:29.1645261Z\",\n                \"2019-05-09T13:25:34.1644578Z\",\n                \"2019-05-09T13:25:44.1606788Z\",\n                \"2019-05-09T13:25:49.1670273Z\",\n                \"2019-05-09T13:25:54.163774Z\",\n                \"2019-05-09T13:26:04.1665207Z\",\n                \"2019-05-09T13:26:09.161737Z\",\n                \"2019-05-09T13:26:14.1580507Z\",\n                \"2019-05-09T13:26:19.171587Z\",\n                \"2019-05-09T13:26:24.160452Z\",\n                \"2019-05-09T13:26:39.1598823Z\",\n                \"2019-05-09T13:26:44.1574953Z\",\n                \"2019-05-09T13:26:54.169393Z\",\n                \"2019-05-09T13:26:59.1588847Z\"\n                ],\n\t\"YValues\": [ \n\t\t                1.5,\n                1.1875,\n                1.6875,\n                1.46875,\n                1.625,\n                1.09375,\n                1.21875,\n                1.5,\n                1.34375,\n                3.53125,\n                1.34375,\n                1.21875,\n                1.6875,\n                1.21875,\n                1.21875,\n                1,\n                19.65625,\n                18.90625,\n                7.875,\n                1.84375,\n                1.96875,\n                1.28125,\n                1.8125,\n                1.3125,\n                2.09375,\n                1,\n                1.25,\n                1.0625,\n                1.875,\n                0.9375,\n                1.875,\n                1,\n                0.96875,\n                1.625,\n                1,\n                2.03125,\n                1.5625,\n                1.21875,\n                0.84375\n                ],\n\t\"Statuses\": [\n\t\t\t\t\"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\",\n                \"OK\"\n                ]\n}"
+				},
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/ReplaceGraphDataRange?",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"ReplaceGraphDataRange"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FetchGraphData (mandatory)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/FetchGraphData(classname='EquipmentHistory', startx='2020-02-01T00:00:00Z', endx='2020-03-01T00:00:00Z', wherestring='Path=%3F AND Property=%3F', whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level'])",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"FetchGraphData(classname='EquipmentHistory', startx='2020-02-01T00:00:00Z', endx='2020-03-01T00:00:00Z', wherestring='Path=%3F AND Property=%3F', whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level'])"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FetchGraphData (all)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/FetchGraphData(classname='EquipmentHistory', startx='2020-02-20T00:00:00Z', endx='2020-03-01T00:00:00Z', wherestring='Path=%3F AND Property=%3F', whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level'], xproperty='Time', yproperty='Value', yformat=ABB.Vtrin.OData.RETURN_FORMAT'ALL', statusformat=ABB.Vtrin.OData.RETURN_FORMAT'ALL', filter='AVG30min')",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"FetchGraphData(classname='EquipmentHistory', startx='2020-02-20T00:00:00Z', endx='2020-03-01T00:00:00Z', wherestring='Path=%3F AND Property=%3F', whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level'], xproperty='Time', yproperty='Value', yformat=ABB.Vtrin.OData.RETURN_FORMAT'ALL', statusformat=ABB.Vtrin.OData.RETURN_FORMAT'ALL', filter='AVG30min')"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FetchGraphDataMerge (mandatory)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/FetchGraphDataMerge(classnames=['EquipmentHistory', 'EquipmentHistory'], wherestrings=['Path=%3F AND Property=%3F', 'Path=%3F AND Property=%3F'], whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level', 'Example site.Water transfer system.Tank area.Target tank', 'Level'], startx='2020-02-26T11:00:12.459826Z', endx= '2020-02-26T11:00:23.459826Z')",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"FetchGraphDataMerge(classnames=['EquipmentHistory', 'EquipmentHistory'], wherestrings=['Path=%3F AND Property=%3F', 'Path=%3F AND Property=%3F'], whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level', 'Example site.Water transfer system.Tank area.Target tank', 'Level'], startx='2020-02-26T11:00:12.459826Z', endx= '2020-02-26T11:00:23.459826Z')"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FetchGraphDataMerge (all)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/FetchGraphDataMerge(classnames=['EquipmentHistory', 'EquipmentHistory'], wherestrings=['Path=%3F AND Property=%3F', 'Path=%3F AND Property=%3F'], whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level', 'Example site.Water transfer system.Tank area.Target tank', 'Level'], startx='2020-02-26T11:00:12.459826Z', endx= '2020-02-26T11:00:23.459826Z', xpropertys=['Time', 'Time'], ypropertys=['Value', 'Value'], queryfilters=['', ''], mergefilter='', yformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED', statusformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED')",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"FetchGraphDataMerge(classnames=['EquipmentHistory', 'EquipmentHistory'], wherestrings=['Path=%3F AND Property=%3F', 'Path=%3F AND Property=%3F'], whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level', 'Example site.Water transfer system.Tank area.Target tank', 'Level'], startx='2020-02-26T11:00:12.459826Z', endx= '2020-02-26T11:00:23.459826Z', xpropertys=['Time', 'Time'], ypropertys=['Value', 'Value'], queryfilters=['', ''], mergefilter='', yformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED', statusformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED')"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FetchGraphDataStack (mandatory)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/FetchGraphDataStack(classnames=['EquipmentHistory', 'EquipmentHistory'], wherestrings=['Path=%3F AND Property=%3F', 'Path=%3F AND Property=%3F'], whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level', 'Example site.Water transfer system.Tank area.Target tank', 'Level'], startx='2020-02-26T11:00:12.459826Z', endx= '2020-02-26T11:00:23.459826Z')",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"FetchGraphDataStack(classnames=['EquipmentHistory', 'EquipmentHistory'], wherestrings=['Path=%3F AND Property=%3F', 'Path=%3F AND Property=%3F'], whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level', 'Example site.Water transfer system.Tank area.Target tank', 'Level'], startx='2020-02-26T11:00:12.459826Z', endx= '2020-02-26T11:00:23.459826Z')"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FetchGraphDataStack (all)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/FetchGraphDataStack(classnames=['EquipmentHistory', 'EquipmentHistory'], wherestrings=['Path=%3F AND Property=%3F', 'Path=%3F AND Property=%3F'], whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level', 'Example site.Water transfer system.Tank area.Target tank', 'Level'], startx='2020-02-26T11:00:12.459826Z', endx= '2020-02-26T11:00:23.459826Z', xpropertys=['Time', 'Time'], ypropertys=['Value', 'Value'], queryfilters=['', ''], stackfilter='', yformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED', statusformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED')",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"FetchGraphDataStack(classnames=['EquipmentHistory', 'EquipmentHistory'], wherestrings=['Path=%3F AND Property=%3F', 'Path=%3F AND Property=%3F'], whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level', 'Example site.Water transfer system.Tank area.Target tank', 'Level'], startx='2020-02-26T11:00:12.459826Z', endx= '2020-02-26T11:00:23.459826Z', xpropertys=['Time', 'Time'], ypropertys=['Value', 'Value'], queryfilters=['', ''], stackfilter='', yformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED', statusformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED')"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FetchGraphDataCalc (mandatory)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/FetchGraphDataCalc(classnames=['EquipmentHistory', 'EquipmentHistory'], wherestrings=['Path=%3F AND Property=%3F', 'Path=%3F AND Property=%3F'], whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level', 'Example site.Water transfer system.Tank area.Target tank', 'Level'], startx='2020-02-26T11:00:12.459826Z', endx= '2020-02-26T11:00:23.459826Z', expression='A+B', expressionIndices=['A', 'B'])",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"FetchGraphDataCalc(classnames=['EquipmentHistory', 'EquipmentHistory'], wherestrings=['Path=%3F AND Property=%3F', 'Path=%3F AND Property=%3F'], whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level', 'Example site.Water transfer system.Tank area.Target tank', 'Level'], startx='2020-02-26T11:00:12.459826Z', endx= '2020-02-26T11:00:23.459826Z', expression='A+B', expressionIndices=['A', 'B'])"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FetchGraphDataCalc (all)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/FetchGraphDataCalc(classnames=['EquipmentHistory', 'EquipmentHistory'], wherestrings=['Path=%3F AND Property=%3F', 'Path=%3F AND Property=%3F'], whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level', 'Example site.Water transfer system.Tank area.Target tank', 'Level'], startx='2020-02-26T11:00:12.459826Z', endx= '2020-02-26T11:00:23.459826Z', expression='A+B', expressionIndices=['A', 'B'], xpropertys=['Time', 'Time'], ypropertys=['Value', 'Value'], queryfilters=['', ''], calcfilter='', yformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED', statusformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED')",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"FetchGraphDataCalc(classnames=['EquipmentHistory', 'EquipmentHistory'], wherestrings=['Path=%3F AND Property=%3F', 'Path=%3F AND Property=%3F'], whereargs=['Example site.Water transfer system.Tank area.Source tank', 'Level', 'Example site.Water transfer system.Tank area.Target tank', 'Level'], startx='2020-02-26T11:00:12.459826Z', endx= '2020-02-26T11:00:23.459826Z', expression='A+B', expressionIndices=['A', 'B'], xpropertys=['Time', 'Time'], ypropertys=['Value', 'Value'], queryfilters=['', ''], calcfilter='', yformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED', statusformat=ABB.Vtrin.OData.RETURN_FORMAT'FORMATED')"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WriteGraphData (Write)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"classname\": \"EquipmentHistory\",\r\n\t\"XValues\": [\"2020-03-02T13:00:00Z\", \"2020-03-02T14:00:00Z\"],\r\n\t\"YValues\": [1500, 2000],\r\n\t\"Statuses\": [\"OK\", \"OK\"],\r\n\t\"wherestring\": \"Path=? AND Property=?\",\r\n\t\"whereargs\": [\"Example site.Water transfer system.Tank area.Target tank\", \"Level\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/WriteGraphData()",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"WriteGraphData()"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WriteGraphData (Delete)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"classname\": \"EquipmentHistory\",\r\n\t\"XValues\": [\"2020-03-02T13:00:00Z\", \"2020-03-02T14:00:00Z\"],\r\n\t\"YValues\": [null, null],\r\n\t\"Statuses\": [\"OK\", \"OK\"],\r\n\t\"wherestring\": \"Path=? AND Property=?\",\r\n\t\"whereargs\": [\"Example site.Water transfer system.Tank area.Target tank\", \"Level\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/WriteGraphData()",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"WriteGraphData()"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReplaceGraphDataRange (Replace)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"classname\": \"EquipmentHistory\",\r\n\t\"startx\" : \"2020-03-02T12:00:00Z\",\r\n\t\"endx\" : \"2020-03-02T15:00:00Z\",\r\n\t\"XValues\": [\"2020-03-02T12:00:00Z\", \"2020-03-02T15:00:00Z\"],\r\n\t\"YValues\": [2500, 3000],\r\n\t\"Statuses\": [\"OK\", \"OK\"],\r\n\t\"wherestring\": \"Path=? AND Property=?\",\r\n\t\"whereargs\": [\"Example site.Water transfer system.Tank area.Target tank\", \"Level\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/ReplaceGraphDataRange()",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"ReplaceGraphDataRange()"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReplaceGraphDataRange (Delete)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"classname\": \"EquipmentHistory\",\r\n\t\"startx\" : \"2020-03-02T12:00:00Z\",\r\n\t\"endx\" : \"2020-03-02T15:00:00Z\",\r\n\t\"XValues\": [],\r\n\t\"YValues\": [],\r\n\t\"Statuses\": [],\r\n\t\"wherestring\": \"Path=? AND Property=?\",\r\n\t\"whereargs\": [\"Example site.Water transfer system.Tank area.Target tank\", \"Level\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{cpmPlusUrl}}/odata/ReplaceGraphDataRange()",
+					"protocol": "https",
+					"host": [
+						"{{cpmPlusUrl}}"
+					],
+					"path": [
+						"odata",
+						"ReplaceGraphDataRange()"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{cpmPlusPassword}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{cpmPlusUsername}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ed0cac00-5b5d-4084-87fb-31dbb6370c7e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "df4a39e1-2637-4887-bc46-8a6809679f58",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
